@@ -9,3 +9,8 @@ Please see the official [Caddy Docker Image](https://hub.docker.com/_/caddy) for
 Builds are available at the following Docker repositories:
 
 * Docker Hub: [docker.io/paradoxsp/caddy-cloudflare](https://hub.docker.com/r/paradoxsp/caddy-cloudflare)
+
+
+Also if you want to setup Caddy with Cloudflare tunnel follow:
+* [Link 1](https://github.com/zastrixarundell/caddy-cloudflare)
+* [Link 2](https://www.robert-jensen.dk/posts/2023-double-reverse-proxy/)
