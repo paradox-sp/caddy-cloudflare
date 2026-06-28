@@ -4,13 +4,31 @@
 
 # caddy-cloudflare
 
-Please see the official [Caddy Docker Image](https://hub.docker.com/_/caddy) for deployment instructions.
+Caddy with the [Cloudflare DNS module](https://github.com/caddy-dns/cloudflare) and optional [cloudflared](https://github.com/cloudflare/cloudflared) tunnel in a single container.
 
-Builds are available at the following Docker repositories:
+**Docker Hub:** [paradoxsp/caddy-cloudflare](https://hub.docker.com/r/paradoxsp/caddy-cloudflare)
 
-* Docker Hub: [docker.io/paradoxsp/caddy-cloudflare](https://hub.docker.com/r/paradoxsp/caddy-cloudflare)
+---
 
+## Environment variables
 
-Also if you want to setup Caddy with Cloudflare tunnel follow:
-* [Link 1](https://github.com/zastrixarundell/caddy-cloudflare)
-* [Link 2](https://www.robert-jensen.dk/posts/2023-double-reverse-proxy/)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TUNNEL_ENABLED` | No | Set to `true` to start cloudflared. Default: `false` |
+| `TUNNEL_TOKEN` | If tunnel enabled | Token from Cloudflare Zero Trust dashboard |
+| `CF_API_TOKEN` | For TLS | Cloudflare API token with `Zone:DNS:Edit` permission |
+| `ACME_EMAIL` | For TLS | Let's Encrypt account email |
+
+---
+
+## Cloudflare Tunnel
+
+When `TUNNEL_ENABLED=true`, cloudflared connects outbound — no open inbound ports required.
+
+1. Go to [Cloudflare Zero Trust](https://one.dash.cloudflare.com) → Networks → Tunnels
+2. Create a tunnel → copy the token
+3. Set tunnel ingress to `http://localhost:80`
+4. Set `TUNNEL_ENABLED: "true"` and `TUNNEL_TOKEN` in your environment
+
+See also:
+* [Link](https://github.com/zastrixarundell/caddy-cloudflare)

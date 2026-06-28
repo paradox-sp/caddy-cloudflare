@@ -1,0 +1,24 @@
+services:
+  caddy-cloudflare:
+    image: paradoxsp/caddy-cloudflare:latest
+    container_name: caddy-cloudflare
+    restart: unless-stopped
+# Uncomment when not using Cloudflare Tunnel
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#      - "443:443/udp"
+    environment:
+      # Cloudflare Tunnel Settings
+      - TUNNEL_ENABLED="false"   # Set to true to start cloudflared
+      - TUNNEL_TOKEN=          # Cloudflare tunnel token (required if TUNNEL_ENABLED=true)
+
+      # Cloudflare DNS Settings (for DNS-01 TLS challenges)
+      - CF_API_TOKEN=          # Cloudflare API token with Zone:DNS:Edit permission
+
+      # Let's Encrypt Settings
+      - ACME_EMAIL=            # Let's Encrypt account email
+    volumes:
+      - /opt/caddy:/etc/caddy
+      - /opt/caddy/caddy_data:/data
+      - /opt/caddy/caddy_config:/config

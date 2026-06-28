@@ -1,0 +1,19 @@
+# Caddyfile - Users can override this via bind mount
+# Uses {$CF_API_TOKEN} and {$ACME_EMAIL} env vars for Cloudflare DNS and Let's Encrypt email
+{$CF_API_TOKEN} {
+    tls {
+        dns cloudflare {
+            api_token {$CF_API_TOKEN}
+        }
+    }
+
+    # Example site - replace with your own domain and configuration
+    example.com {
+        reverse_proxy localhost:8080
+        log {
+            output stdout {
+                format console
+            }
+        }
+    }
+}
